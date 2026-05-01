@@ -12,13 +12,7 @@
   <script src="https://unpkg.com/prop-types@15.8.1/prop-types.min.js"></script>
   <script src="https://unpkg.com/recharts@2.12.7/umd/Recharts.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', 'Segoe UI', sans-serif; background: #fff; }
-    tbody tr:last-child { border-bottom: none !important; }
-    @keyframes toastIn { from { opacity: 0; transform: translateY(12px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
-    @keyframes toastOut { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(12px) scale(0.97); } }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="root"></div>
@@ -27,7 +21,7 @@
     const { useState } = React;
 
     const PRIMARY = "#5A27CC";
-    const PRIMARY_BG = "#f0f0f0";
+    const PRIMARY_BG = "#f5f5f5";
 
     const TICKET_TYPES = [
       { id: 1, name: "Ticket Type 1", price: 2000 },
@@ -191,7 +185,7 @@
       return (
         <span style={{
           background: s.bg, color: s.color,
-          padding: "2px 10px", borderRadius: 99, fontSize: 12, fontWeight: 600, letterSpacing: 0.2,
+          padding: "2px 10px", borderRadius: 99, fontSize: 12, fontWeight: 500, letterSpacing: 0.2,
         }}>{status}</span>
       );
     }
@@ -202,16 +196,16 @@
           background: "#fff", borderRadius: 16, padding: "22px 24px",
           boxShadow: "none",
           display: "flex", flexDirection: "column", gap: 10, flex: 1, minWidth: 180,
-          border: "1px solid #e5e5e5", position: "relative", overflow: "hidden",
+          border: "1px solid #f5f5f5", position: "relative", overflow: "hidden",
         }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <span style={{ fontSize: 14, fontWeight: 500, color: "#888888", letterSpacing: 0.1 }}>{label}</span>
-            <span style={{ background: "#fff", border: "1.5px solid #e5e5e5", borderRadius: 10, padding: "6px 8px", display: "flex", alignItems: "center", zIndex: 1 }}>
+            <span style={{ fontSize: 14, fontWeight: 500, color: "#737373", letterSpacing: 0.1 }}>{label}</span>
+            <span style={{ background: "#fff", border: "1.5px solid #f5f5f5", borderRadius: 10, padding: "6px 8px", display: "flex", alignItems: "center", zIndex: 1 }}>
               {icon}
             </span>
           </div>
-          <div style={{ fontSize: 30, fontWeight: 500, color: "#333333", letterSpacing: 0 }}>{value}</div>
-          <div style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12, color: trend === "up" ? "#16A34A" : trend === "down" ? "#DC2626" : "#888888", fontWeight: 500 }}>
+          <div style={{ fontSize: 30, fontWeight: 500, color: "#262626", letterSpacing: 0 }}>{value}</div>
+          <div style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12, color: trend === "up" ? "#16A34A" : trend === "down" ? "#DC2626" : "#737373", fontWeight: 500 }}>
             {trend === "up" && <TrendUp size={13} />}
             {trend === "down" && <TrendDown size={13} />}
             {sub}
@@ -229,17 +223,17 @@
           background: "#fff", borderRadius: 16, padding: "22px 24px",
           boxShadow: "none",
           display: "flex", flexDirection: "column", gap: 10, flex: 1, minWidth: 180,
-          border: "1px solid #e5e5e5",
+          border: "1px solid #f5f5f5",
         }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <span style={{ fontSize: 14, fontWeight: 500, color: "#888888", letterSpacing: 0.1 }}>Ticket Type</span>
+            <span style={{ fontSize: 14, fontWeight: 500, color: "#737373", letterSpacing: 0.1 }}>Ticket Type</span>
             <select value={selected} onChange={e => setSelected(e.target.value)}
-              style={{ fontSize: 12, fontWeight: 600, color: "#333333", border: "1px solid #e5e5e5", borderRadius: 8, padding: "4px 8px", background: "#fafafa", cursor: "pointer", outline: "none", appearance: "none" }}>
+              style={{ fontSize: 12, fontWeight: 500, color: "#262626", border: "1px solid #f5f5f5", borderRadius: 8, padding: "4px 8px", background: "#fafafa", cursor: "pointer", outline: "none", appearance: "none" }}>
               {TICKET_TYPES.map(t => <option key={t.name}>{t.name}</option>)}
             </select>
           </div>
-          <div style={{ fontSize: 30, fontWeight: 500, color: "#333333", letterSpacing: 0 }}>{count}</div>
-          <div style={{ fontSize: 12, color: "#888888", fontWeight: 500 }}>₦{revenue.toLocaleString()} revenue</div>
+          <div style={{ fontSize: 30, fontWeight: 500, color: "#262626", letterSpacing: 0 }}>{count}</div>
+          <div style={{ fontSize: 12, color: "#737373", fontWeight: 500 }}>₦{revenue.toLocaleString()} revenue</div>
         </div>
       );
     }
@@ -275,8 +269,8 @@
             {data.map((s, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <div style={{ width: 9, height: 9, borderRadius: "50%", background: s.color, flexShrink: 0 }} />
-                <span style={{ fontSize: 12, color: "#888888", fontWeight: 500, minWidth: 84 }}>{s.label}</span>
-                <span style={{ fontSize: 12, color: "#333333", fontWeight: 500 }}>₦{Number(s.value).toLocaleString()}</span>
+                <span style={{ fontSize: 12, color: "#737373", fontWeight: 500, minWidth: 84 }}>{s.label}</span>
+                <span style={{ fontSize: 12, color: "#262626", fontWeight: 500 }}>₦{Number(s.value).toLocaleString()}</span>
               </div>
             ))}
           </div>
@@ -293,7 +287,7 @@
               dataKey="label"
               axisLine={false}
               tickLine={false}
-              tick={{ fontSize: 12, fill: "#aaaaaa", fontFamily: "Inter, Segoe UI, sans-serif" }}
+              tick={{ fontSize: 12, fill: "#737373", fontFamily: "Inter, sans-serif" }}
             />
             <YAxis hide />
             <Tooltip
@@ -332,33 +326,32 @@
             boxShadow: "-4px 0 24px rgba(0,0,0,0.08)",
             animation: "slideIn 0.22s ease",
           }} onClick={e => e.stopPropagation()}>
-            <style>{`@keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }`}</style>
-            <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 24, paddingBottom: 24, borderBottom: "1px solid #f0f0f0" }}>
+<div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 24, paddingBottom: 24, borderBottom: "1px solid #f5f5f5" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                <div style={{ width: 44, height: 44, borderRadius: 12, background: "#f4f4f5", border: "1.5px solid #e5e5e5", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  <TicketIcon size={20} color="#666666" />
+                <div style={{ width: 44, height: 44, borderRadius: 12, background: "#f5f5f5", border: "1.5px solid #f5f5f5", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <TicketIcon size={20} color="#737373" />
                 </div>
                 <div>
-                  <div style={{ fontSize: 16, fontWeight: 500, color: "#1a1a1a", marginBottom: 3 }}>Ticket Details</div>
-                  <div style={{ fontSize: 12, fontWeight: 500, color: "#aaaaaa" }}>{ticket.id}</div>
+                  <div style={{ fontSize: 16, fontWeight: 500, color: "#262626", marginBottom: 3 }}>Ticket Details</div>
+                  <div style={{ fontSize: 12, fontWeight: 500, color: "#737373" }}>{ticket.id}</div>
                 </div>
               </div>
-              <button onClick={onClose} style={{ background: "#f0f0f0", border: "none", borderRadius: "50%", width: 34, height: 34, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                <XIcon size={13} color="#555555" />
+              <button onClick={onClose} style={{ background: "#f5f5f5", border: "none", borderRadius: "50%", width: 34, height: 34, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <XIcon size={13} color="#737373" />
               </button>
             </div>
             <div style={{ flex: 1, overflowY: "auto" }}>
               {fields.map(({ label, value }, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 0" }}>
-                  <span style={{ fontSize: 14, fontWeight: 500, color: "#aaaaaa" }}>{label}</span>
-                  <span style={{ fontSize: 14, fontWeight: 500, color: "#1a1a1a", textAlign: "right" }}>{value}</span>
+                  <span style={{ fontSize: 14, fontWeight: 500, color: "#737373" }}>{label}</span>
+                  <span style={{ fontSize: 14, fontWeight: 500, color: "#262626", textAlign: "right" }}>{value}</span>
                 </div>
               ))}
             </div>
             <div style={{ marginTop: 24 }}>
               <button onClick={onClose} style={{
-                width: "100%", background: "#f4f4f5", border: "none", borderRadius: 10,
-                padding: "11px", fontSize: 14, fontWeight: 500, color: "#555555",
+                width: "100%", background: "#f5f5f5", border: "none", borderRadius: 10,
+                padding: "11px", fontSize: 14, fontWeight: 500, color: "#737373",
                 cursor: "pointer",
               }}>Close</button>
             </div>
@@ -412,8 +405,8 @@
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
               <button onClick={() => setSelectedEvent(null)} style={{
-                background: "#fff", border: "1px solid #e5e5e5", borderRadius: 10,
-                padding: "8px 14px", fontSize: 14, fontWeight: 600, color: "#555555",
+                background: "#fff", border: "1px solid #f5f5f5", borderRadius: 10,
+                padding: "8px 14px", fontSize: 14, fontWeight: 500, color: "#737373",
                 cursor: "pointer", display: "flex", alignItems: "center", gap: 6,
               }}>
                 <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -421,51 +414,51 @@
                 </svg>
                 All Events
               </button>
-              <span style={{ fontSize: 12, color: "#aaaaaa" }}>›</span>
-              <span style={{ fontSize: 14, fontWeight: 500, color: "#333333" }}>{selectedEvent.name}</span>
+              <span style={{ fontSize: 12, color: "#737373" }}>›</span>
+              <span style={{ fontSize: 14, fontWeight: 500, color: "#262626" }}>{selectedEvent.name}</span>
             </div>
 
-            <div style={{ background: "#fff", borderRadius: 16, padding: "24px 28px", border: "1px solid #e5e5e5", boxShadow: "none" }}>
+            <div style={{ background: "#fff", borderRadius: 16, padding: "24px 28px", border: "1px solid #f5f5f5", boxShadow: "none" }}>
               <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
                 <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                    <span style={{ fontSize: 20, fontWeight: 600, color: "#333333" }}>{selectedEvent.name}</span>
-                    <span style={{ background: s.bg, color: s.color, padding: "2px 10px", borderRadius: 99, fontSize: 12, fontWeight: 600 }}>{selectedEvent.status}</span>
+                    <span style={{ fontSize: 20, fontWeight: 500, color: "#262626" }}>{selectedEvent.name}</span>
+                    <span style={{ background: s.bg, color: s.color, padding: "2px 10px", borderRadius: 99, fontSize: 12, fontWeight: 500 }}>{selectedEvent.status}</span>
                   </div>
-                  <span style={{ fontSize: 14, color: "#888888" }}>{selectedEvent.description}</span>
+                  <span style={{ fontSize: 14, color: "#737373" }}>{selectedEvent.description}</span>
                   <div style={{ display: "flex", gap: 20, marginTop: 4, flexWrap: "wrap" }}>
-                    <span style={{ fontSize: 14, color: "#555555", display: "flex", alignItems: "center", gap: 6 }}>
-                      <CalendarIcon size={14} color="#666666" />
+                    <span style={{ fontSize: 14, color: "#737373", display: "flex", alignItems: "center", gap: 6 }}>
+                      <CalendarIcon size={14} color="#737373" />
                       {fmt(selectedEvent.date)}
                     </span>
-                    <span style={{ fontSize: 14, color: "#555555" }}>📍 {selectedEvent.venue}</span>
-                    <span style={{ fontSize: 14, color: "#555555" }}>🏷 {selectedEvent.category}</span>
+                    <span style={{ fontSize: 14, color: "#737373" }}>📍 {selectedEvent.venue}</span>
+                    <span style={{ fontSize: 14, color: "#737373" }}>🏷 {selectedEvent.category}</span>
                   </div>
                 </div>
-                <span style={{ fontSize: 12, fontWeight: 600, color: "#aaaaaa", background: "#f8f8f8", borderRadius: 8, padding: "4px 10px" }}>{selectedEvent.id}</span>
+                <span style={{ fontSize: 12, fontWeight: 500, color: "#737373", background: "#fafafa", borderRadius: 8, padding: "4px 10px" }}>{selectedEvent.id}</span>
               </div>
             </div>
 
             <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-              <StatCard label="Attendees" value={unique.length} sub="Unique registrations" icon={<UsersIcon size={16} color="#666666" />} />
-              <StatCard label="Tickets Sold" value={eventTickets.length} sub="Total tickets" trend="up" icon={<TicketIcon size={16} color="#666666" />} />
-              <StatCard label="Revenue" value={`₦${(revenue / 1000).toFixed(0)}k`} sub="Gross revenue" trend="up" icon={<ChartIcon size={16} color="#666666" />} />
-              <StatCard label="Confirmed" value={confirmed} sub={eventTickets.length ? `${Math.round(confirmed / eventTickets.length * 100)}% of tickets` : "—"} icon={<GridIcon size={16} color="#666666" />} />
+              <StatCard label="Attendees" value={unique.length} sub="Unique registrations" icon={<UsersIcon size={16} color="#737373" />} />
+              <StatCard label="Tickets Sold" value={eventTickets.length} sub="Total tickets" trend="up" icon={<TicketIcon size={16} color="#737373" />} />
+              <StatCard label="Revenue" value={`₦${(revenue / 1000).toFixed(0)}k`} sub="Gross revenue" trend="up" icon={<ChartIcon size={16} color="#737373" />} />
+              <StatCard label="Confirmed" value={confirmed} sub={eventTickets.length ? `${Math.round(confirmed / eventTickets.length * 100)}% of tickets` : "—"} icon={<GridIcon size={16} color="#737373" />} />
             </div>
 
-            <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #e5e5e5", overflow: "hidden" }}>
-              <div style={{ padding: "18px 24px", borderBottom: "1px solid #e5e5e5" }}>
-                <div style={{ fontSize: 14, fontWeight: 500, color: "#888888" }}>Attendees</div>
-                <div style={{ fontSize: 12, color: "#aaaaaa", marginTop: 2 }}>{unique.length} unique attendee{unique.length !== 1 ? "s" : ""}</div>
+            <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #f5f5f5", overflow: "hidden" }}>
+              <div style={{ padding: "18px 24px", borderBottom: "1px solid #f5f5f5" }}>
+                <div style={{ fontSize: 14, fontWeight: 500, color: "#737373" }}>Attendees</div>
+                <div style={{ fontSize: 12, color: "#737373", marginTop: 2 }}>{unique.length} unique attendee{unique.length !== 1 ? "s" : ""}</div>
               </div>
               {unique.length === 0 ? (
-                <div style={{ padding: "40px 24px", textAlign: "center", color: "#aaaaaa", fontSize: 14 }}>No attendees yet</div>
+                <div style={{ padding: "40px 24px", textAlign: "center", color: "#737373", fontSize: 14 }}>No attendees yet</div>
               ) : (
                 <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
                   <thead>
                     <tr style={{ background: "#fafafa" }}>
                       {["Name", "Email", "Phone", "Ticket Type", "Qty", "Total Spent", "Status"].map(h => (
-                        <th key={h} style={{ textAlign: "left", padding: "13px 20px", color: "#333333", fontWeight: 600, fontSize: 14 }}>{h}</th>
+                        <th key={h} style={{ textAlign: "left", padding: "13px 20px", color: "#262626", fontWeight: 500, fontSize: 14 }}>{h}</th>
                       ))}
                     </tr>
                   </thead>
@@ -475,18 +468,18 @@
                       const spent = allForAttendee.reduce((a, b) => a + b.total, 0);
                       const qty = allForAttendee.reduce((a, b) => a + b.quantity, 0);
                       return (
-                        <tr key={t.email} style={{ borderBottom: "1px solid #f0f0f0", background: "#fff" }}>
-                          <td style={{ padding: "13px 20px", fontWeight: 600, color: "#333333" }}>
+                        <tr key={t.email} style={{ borderBottom: "1px solid #f5f5f5", background: "#fff" }}>
+                          <td style={{ padding: "13px 20px", fontWeight: 500, color: "#262626" }}>
                             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                              <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#e8e8e8", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 500, fontSize: 14, color: "#555555", flexShrink: 0 }}>{t.name[0]}</div>
+                              <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#e5e5e5", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 500, fontSize: 14, color: "#737373", flexShrink: 0 }}>{t.name[0]}</div>
                               {t.name}
                             </div>
                           </td>
-                          <td style={{ padding: "13px 20px", color: "#555555" }}>{t.email}</td>
-                          <td style={{ padding: "13px 20px", color: "#555555", whiteSpace: "nowrap" }}>{t.phone}</td>
-                          <td style={{ padding: "13px 20px", color: "#333333" }}>{t.ticketType}</td>
-                          <td style={{ padding: "13px 20px", color: "#555555", textAlign: "center" }}>{qty}</td>
-                          <td style={{ padding: "13px 20px", color: "#333333", fontWeight: 500 }}>₦{spent.toLocaleString()}</td>
+                          <td style={{ padding: "13px 20px", color: "#737373" }}>{t.email}</td>
+                          <td style={{ padding: "13px 20px", color: "#737373", whiteSpace: "nowrap" }}>{t.phone}</td>
+                          <td style={{ padding: "13px 20px", color: "#262626" }}>{t.ticketType}</td>
+                          <td style={{ padding: "13px 20px", color: "#737373", textAlign: "center" }}>{qty}</td>
+                          <td style={{ padding: "13px 20px", color: "#262626", fontWeight: 500 }}>₦{spent.toLocaleString()}</td>
                           <td style={{ padding: "13px 20px" }}><Badge status={t.status} /></td>
                         </tr>
                       );
@@ -511,16 +504,16 @@
             {["All", "Upcoming", "Past"].map(tab => (
               <button key={tab} onClick={() => setFilter(tab)} style={{
                 padding: "7px 16px", borderRadius: 8, border: "1px solid",
-                borderColor: filter === tab ? "#333333" : "#e5e5e5",
-                background: filter === tab ? "#333333" : "#fff",
-                color: filter === tab ? "#fff" : "#888888",
+                borderColor: filter === tab ? "#262626" : "#e5e5e5",
+                background: filter === tab ? "#262626" : "#fff",
+                color: filter === tab ? "#fff" : "#737373",
                 fontSize: 14, fontWeight: 500, cursor: "pointer", transition: "all 0.15s",
               }}>{tab}</button>
             ))}
           </div>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             {filteredEvents.length === 0 && (
-              <div style={{ color: "#aaaaaa", fontSize: 14, padding: "24px 0" }}>No events found.</div>
+              <div style={{ color: "#737373", fontSize: 14, padding: "24px 0" }}>No events found.</div>
             )}
             {filteredEvents.map(ev => {
               const eventTickets = tickets.filter(ev.ticketFilter);
@@ -530,38 +523,38 @@
               return (
                 <div key={ev.id} onClick={() => setSelectedEvent(ev)} style={{
                   background: "#fff", borderRadius: 16, padding: "22px 24px",
-                  border: "1px solid #e5e5e5", boxShadow: "none",
+                  border: "1px solid #f5f5f5", boxShadow: "none",
                   flex: 1, minWidth: 280, cursor: "pointer", transition: "box-shadow 0.15s, border-color 0.15s",
                   display: "flex", flexDirection: "column", gap: 14,
                 }}
                   onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 4px 16px rgba(90,39,204,0.12)"; e.currentTarget.style.borderColor = `${PRIMARY}55`; }}
-                  onMouseLeave={e => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.borderColor = "#e5e5e5"; }}>
+                  onMouseLeave={e => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.borderColor = "#f5f5f5"; }}>
                   <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10 }}>
-                    <div style={{ width: 42, height: 42, borderRadius: 12, background: "#fff", border: "1.5px solid #e5e5e5", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                      <CalendarIcon size={20} color="#666666" />
+                    <div style={{ width: 42, height: 42, borderRadius: 12, background: "#fff", border: "1.5px solid #f5f5f5", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                      <CalendarIcon size={20} color="#737373" />
                     </div>
-                    <span style={{ background: s.bg, color: s.color, padding: "2px 10px", borderRadius: 99, fontSize: 12, fontWeight: 600 }}>{ev.status}</span>
+                    <span style={{ background: s.bg, color: s.color, padding: "2px 10px", borderRadius: 99, fontSize: 12, fontWeight: 500 }}>{ev.status}</span>
                   </div>
                   <div>
-                    <div style={{ fontSize: 15, fontWeight: 600, color: "#333333", marginBottom: 4 }}>{ev.name}</div>
-                    <div style={{ fontSize: 12, color: "#888888", marginBottom: 10, lineHeight: 1.5 }}>{ev.description}</div>
+                    <div style={{ fontSize: 15, fontWeight: 500, color: "#262626", marginBottom: 4 }}>{ev.name}</div>
+                    <div style={{ fontSize: 12, color: "#737373", marginBottom: 10, lineHeight: 1.5 }}>{ev.description}</div>
                     <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                      <span style={{ fontSize: 12, color: "#555555" }}>📅 {fmt(ev.date)}</span>
-                      <span style={{ fontSize: 12, color: "#555555" }}>📍 {ev.venue}</span>
+                      <span style={{ fontSize: 12, color: "#737373" }}>📅 {fmt(ev.date)}</span>
+                      <span style={{ fontSize: 12, color: "#737373" }}>📍 {ev.venue}</span>
                     </div>
                   </div>
-                  <div style={{ borderTop: "1px solid #e5e5e5", paddingTop: 14, display: "flex", gap: 20 }}>
+                  <div style={{ borderTop: "1px solid #f5f5f5", paddingTop: 14, display: "flex", gap: 20 }}>
                     <div>
-                      <div style={{ fontSize: 18, fontWeight: 600, color: "#333333" }}>{unique.length}</div>
-                      <div style={{ fontSize: 12, color: "#aaaaaa", fontWeight: 500 }}>Attendees</div>
+                      <div style={{ fontSize: 18, fontWeight: 500, color: "#262626" }}>{unique.length}</div>
+                      <div style={{ fontSize: 12, color: "#737373", fontWeight: 500 }}>Attendees</div>
                     </div>
                     <div>
-                      <div style={{ fontSize: 18, fontWeight: 600, color: "#333333" }}>{eventTickets.length}</div>
-                      <div style={{ fontSize: 12, color: "#aaaaaa", fontWeight: 500 }}>Tickets</div>
+                      <div style={{ fontSize: 18, fontWeight: 500, color: "#262626" }}>{eventTickets.length}</div>
+                      <div style={{ fontSize: 12, color: "#737373", fontWeight: 500 }}>Tickets</div>
                     </div>
                     <div>
-                      <div style={{ fontSize: 18, fontWeight: 600, color: "#333333" }}>₦{(revenue / 1000).toFixed(0)}k</div>
-                      <div style={{ fontSize: 12, color: "#aaaaaa", fontWeight: 500 }}>Revenue</div>
+                      <div style={{ fontSize: 18, fontWeight: 500, color: "#262626" }}>₦{(revenue / 1000).toFixed(0)}k</div>
+                      <div style={{ fontSize: 12, color: "#737373", fontWeight: 500 }}>Revenue</div>
                     </div>
                   </div>
                 </div>
@@ -630,20 +623,20 @@
       return (
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-            <StatCard label="Total Revenue" value={`₦${(revenue / 1000).toFixed(0)}k`} sub="+8.4% this month" trend="up" icon={<ChartIcon size={16} color="#666666" />} />
-            <StatCard label="Total Tickets" value={total} sub="+12% this month" trend="up" icon={<TicketIcon size={16} color="#666666" />} />
-            <StatCard label="Total Attendees" value={uniqueAttendees} sub="Unique registrants" icon={<UsersIcon size={16} color="#666666" />} />
+            <StatCard label="Total Revenue" value={`₦${(revenue / 1000).toFixed(0)}k`} sub="+8.4% this month" trend="up" icon={<ChartIcon size={16} color="#737373" />} />
+            <StatCard label="Total Tickets" value={total} sub="+12% this month" trend="up" icon={<TicketIcon size={16} color="#737373" />} />
+            <StatCard label="Total Attendees" value={uniqueAttendees} sub="Unique registrants" icon={<UsersIcon size={16} color="#737373" />} />
           </div>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-            <div style={{ background: "#fff", borderRadius: 16, padding: "22px 24px", flex: 1.6, minWidth: 260, border: "1px solid #e5e5e5" }}>
+            <div style={{ background: "#fff", borderRadius: 16, padding: "22px 24px", flex: 1.6, minWidth: 260, border: "1px solid #f5f5f5" }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
-                <div style={{ fontSize: 14, fontWeight: 500, color: "#888888" }}>Revenue</div>
+                <div style={{ fontSize: 14, fontWeight: 500, color: "#737373" }}>Revenue</div>
                 <div style={{ display: "flex", background: "#fafafa", borderRadius: 10, padding: 3, gap: 2 }}>
                   {revenueTabs.map(tab => (
                     <button key={tab} onClick={() => setRevenueTab(tab)} style={{
                       fontSize: 12, fontWeight: 500, padding: "5px 10px", borderRadius: 8, border: "none", cursor: "pointer",
                       background: revenueTab === tab ? "#fff" : "transparent",
-                      color: revenueTab === tab ? "#333333" : "#888888",
+                      color: revenueTab === tab ? "#262626" : "#737373",
                       boxShadow: revenueTab === tab ? "0 1px 3px rgba(0,0,0,0.08)" : "none",
                       transition: "all 0.15s",
                     }}>{tab}</button>
@@ -651,41 +644,41 @@
                 </div>
               </div>
               <div style={{ display: "flex", alignItems: "flex-start", gap: 4, marginBottom: 24 }}>
-                <span style={{ fontSize: 14, fontWeight: 500, color: "#888888", marginTop: 6 }}>₦</span>
-                <span style={{ fontSize: 32, fontWeight: 500, color: "#1a1a1a", letterSpacing: 0, lineHeight: 1 }}>{Math.round(revenue / tickets.length).toLocaleString()}</span>
+                <span style={{ fontSize: 14, fontWeight: 500, color: "#737373", marginTop: 6 }}>₦</span>
+                <span style={{ fontSize: 32, fontWeight: 500, color: "#262626", letterSpacing: 0, lineHeight: 1 }}>{Math.round(revenue / tickets.length).toLocaleString()}</span>
               </div>
               <BarChart data={barData} color="#4B9EFF" />
             </div>
-            <div style={{ background: "#fff", borderRadius: 16, padding: "22px 24px", flex: 1, minWidth: 220, border: "1px solid #e5e5e5" }}>
-              <div style={{ fontSize: 14, fontWeight: 500, color: "#888888", marginBottom: 16 }}>Ticket Breakdown</div>
+            <div style={{ background: "#fff", borderRadius: 16, padding: "22px 24px", flex: 1, minWidth: 220, border: "1px solid #f5f5f5" }}>
+              <div style={{ fontSize: 14, fontWeight: 500, color: "#737373", marginBottom: 16 }}>Ticket Breakdown</div>
               <div style={{ display: "flex", alignItems: "flex-start", gap: 4, marginBottom: 24 }}>
-                <span style={{ fontSize: 14, fontWeight: 500, color: "#888888", marginTop: 6 }}>₦</span>
-                <span style={{ fontSize: 32, fontWeight: 500, color: "#1a1a1a", letterSpacing: 0, lineHeight: 1 }}>{(revenue / 1000).toFixed(0)}k</span>
+                <span style={{ fontSize: 14, fontWeight: 500, color: "#737373", marginTop: 6 }}>₦</span>
+                <span style={{ fontSize: 32, fontWeight: 500, color: "#262626", letterSpacing: 0, lineHeight: 1 }}>{(revenue / 1000).toFixed(0)}k</span>
               </div>
               <DonutChart data={typeBreakdown} />
             </div>
           </div>
-          <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #e5e5e5", overflow: "hidden" }}>
-            <div style={{ padding: "18px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid #e5e5e5" }}>
-              <div style={{ fontSize: 14, fontWeight: 500, color: "#888888" }}>Recent Registrations</div>
+          <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #f5f5f5", overflow: "hidden" }}>
+            <div style={{ padding: "18px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid #f5f5f5" }}>
+              <div style={{ fontSize: 14, fontWeight: 500, color: "#737373" }}>Recent Registrations</div>
               <button onClick={() => onNavigate("tickets")} style={{ background: "none", border: "none", fontSize: 14, fontWeight: 500, color: PRIMARY, cursor: "pointer", padding: 0 }}>View All →</button>
             </div>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
               <thead>
                 <tr style={{ background: "#fafafa" }}>
                   {["ID", "Name", "Ticket Type", "Total", "Date"].map(h => (
-                    <th key={h} style={{ textAlign: "left", padding: "13px 20px", color: "#333333", fontWeight: 600, fontSize: 14 }}>{h}</th>
+                    <th key={h} style={{ textAlign: "left", padding: "13px 20px", color: "#262626", fontWeight: 500, fontSize: 14 }}>{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {recent.map((t, i) => (
-                  <tr key={t.id} style={{ borderBottom: "1px solid #f0f0f0", background: "#fff" }}>
+                  <tr key={t.id} style={{ borderBottom: "1px solid #f5f5f5", background: "#fff" }}>
                     <td style={{ padding: "13px 20px", color: PRIMARY, fontWeight: 500 }}>{t.id}</td>
-                    <td style={{ padding: "13px 20px", color: "#333333", fontWeight: 600 }}>{t.name}</td>
-                    <td style={{ padding: "13px 20px", color: "#555555" }}>{t.ticketType}</td>
-                    <td style={{ padding: "13px 20px", color: "#333333", fontWeight: 600 }}>₦{t.total.toLocaleString()}</td>
-                    <td style={{ padding: "13px 20px", color: "#888888" }}>{fmt(t.date)}</td>
+                    <td style={{ padding: "13px 20px", color: "#262626", fontWeight: 500 }}>{t.name}</td>
+                    <td style={{ padding: "13px 20px", color: "#737373" }}>{t.ticketType}</td>
+                    <td style={{ padding: "13px 20px", color: "#262626", fontWeight: 500 }}>₦{t.total.toLocaleString()}</td>
+                    <td style={{ padding: "13px 20px", color: "#737373" }}>{fmt(t.date)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -717,60 +710,60 @@
       return (
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           {selected && <Modal ticket={selected} onClose={() => setSelected(null)} />}
-          <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #e5e5e5", overflow: "hidden" }}>
-            <div style={{ padding: "18px 22px", display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center", borderBottom: "1px solid #e5e5e5" }}>
+          <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #f5f5f5", overflow: "hidden" }}>
+            <div style={{ padding: "18px 22px", display: "flex", gap: 14, flexWrap: "wrap", alignItems: "center", borderBottom: "1px solid #f5f5f5" }}>
               <div style={{ position: "relative", flex: 1, minWidth: 200 }}>
-                <span style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)" }}><SearchIcon color="#aaaaaa" /></span>
+                <span style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)" }}><SearchIcon color="#737373" /></span>
                 <input value={search} onChange={e => { setSearch(e.target.value); setPage(1); }} placeholder="Search by name, email, or ID…"
-                  style={{ width: "100%", padding: "9px 12px 9px 36px", borderRadius: 10, border: "1px solid #e5e5e5", fontSize: 14, outline: "none", color: "#333333", background: "#fafafa", boxSizing: "border-box" }} />
+                  style={{ width: "100%", padding: "9px 12px 9px 36px", borderRadius: 10, border: "1px solid #f5f5f5", fontSize: 14, outline: "none", color: "#262626", background: "#fafafa", boxSizing: "border-box" }} />
               </div>
               {[["Status", ["All", ...STATUS], filterStatus, v => { setFilterStatus(v); setPage(1); }],
                 ["Type", ["All", ...TICKET_TYPES.map(t => t.name)], filterType, v => { setFilterType(v); setPage(1); }]].map(([label, opts, val, onChange]) => (
                 <div key={label} style={{ position: "relative" }}>
                   <select value={val} onChange={e => onChange(e.target.value)}
-                    style={{ appearance: "none", padding: "9px 32px 9px 14px", borderRadius: 10, border: "1px solid #e5e5e5", fontSize: 14, color: "#333333", background: "#fafafa", cursor: "pointer", outline: "none", fontWeight: 500 }}>
+                    style={{ appearance: "none", padding: "9px 32px 9px 14px", borderRadius: 10, border: "1px solid #f5f5f5", fontSize: 14, color: "#262626", background: "#fafafa", cursor: "pointer", outline: "none", fontWeight: 500 }}>
                     {opts.map(o => <option key={o}>{o}</option>)}
                   </select>
-                  <span style={{ position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}><ChevronDown color="#666666" /></span>
+                  <span style={{ position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}><ChevronDown color="#737373" /></span>
                 </div>
               ))}
-              <div style={{ marginLeft: "auto", fontSize: 14, color: "#888888", fontWeight: 500 }}>{filtered.length} results</div>
+              <div style={{ marginLeft: "auto", fontSize: 14, color: "#737373", fontWeight: 500 }}>{filtered.length} results</div>
             </div>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
               <thead>
                 <tr style={{ background: "#fafafa" }}>
                   {["ID", "Name", "Email", "Phone", "Ticket Type", "Qty", "Total", "Date"].map(h => (
-                    <th key={h} style={{ textAlign: "left", padding: "13px 20px", color: "#333333", fontWeight: 600, fontSize: 14, whiteSpace: "nowrap" }}>{h}</th>
+                    <th key={h} style={{ textAlign: "left", padding: "13px 20px", color: "#262626", fontWeight: 500, fontSize: 14, whiteSpace: "nowrap" }}>{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {paged.map((t, i) => (
-                  <tr key={t.id} onClick={() => setSelected(t)} style={{ borderBottom: "1px solid #e5e5e5", background: "#fff", transition: "background 0.15s", cursor: "pointer" }}
+                  <tr key={t.id} onClick={() => setSelected(t)} style={{ borderBottom: "1px solid #f5f5f5", background: "#fff", transition: "background 0.15s", cursor: "pointer" }}
                     onMouseEnter={e => e.currentTarget.style.background = "#fafafa"}
                     onMouseLeave={e => e.currentTarget.style.background = "#fff"}>
                     <td style={{ padding: "13px 20px", color: PRIMARY, fontWeight: 500, whiteSpace: "nowrap" }}>{t.id}</td>
-                    <td style={{ padding: "13px 20px", color: "#333333", fontWeight: 600, whiteSpace: "nowrap" }}>{t.name}</td>
-                    <td style={{ padding: "13px 20px", color: "#555555" }}>{t.email}</td>
-                    <td style={{ padding: "13px 20px", color: "#555555", whiteSpace: "nowrap" }}>{t.phone}</td>
-                    <td style={{ padding: "13px 20px", color: "#333333" }}>{t.ticketType}</td>
-                    <td style={{ padding: "13px 20px", color: "#555555", textAlign: "center" }}>{t.quantity}</td>
-                    <td style={{ padding: "13px 20px", color: "#333333", fontWeight: 500, whiteSpace: "nowrap" }}>₦{t.total.toLocaleString()}</td>
-                    <td style={{ padding: "13px 20px", color: "#888888", whiteSpace: "nowrap" }}>{fmt(t.date)}</td>
+                    <td style={{ padding: "13px 20px", color: "#262626", fontWeight: 500, whiteSpace: "nowrap" }}>{t.name}</td>
+                    <td style={{ padding: "13px 20px", color: "#737373" }}>{t.email}</td>
+                    <td style={{ padding: "13px 20px", color: "#737373", whiteSpace: "nowrap" }}>{t.phone}</td>
+                    <td style={{ padding: "13px 20px", color: "#262626" }}>{t.ticketType}</td>
+                    <td style={{ padding: "13px 20px", color: "#737373", textAlign: "center" }}>{t.quantity}</td>
+                    <td style={{ padding: "13px 20px", color: "#262626", fontWeight: 500, whiteSpace: "nowrap" }}>₦{t.total.toLocaleString()}</td>
+                    <td style={{ padding: "13px 20px", color: "#737373", whiteSpace: "nowrap" }}>{fmt(t.date)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 18px", borderTop: "1px solid #e5e5e5" }}>
-              <span style={{ fontSize: 12, color: "#aaaaaa" }}>Page {page} of {totalPages}</span>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 18px", borderTop: "1px solid #f5f5f5" }}>
+              <span style={{ fontSize: 12, color: "#737373" }}>Page {page} of {totalPages}</span>
               <div style={{ display: "flex", gap: 6 }}>
                 {Array.from({ length: totalPages }, (_, i) => i + 1).slice(Math.max(0, page - 3), page + 2).map(p => (
                   <button key={p} onClick={() => setPage(p)} style={{
                     width: 32, height: 32, borderRadius: 8, border: "1.5px solid",
-                    borderColor: p === page ? PRIMARY : "#e0e0e0",
+                    borderColor: p === page ? PRIMARY : "#e5e5e5",
                     background: p === page ? PRIMARY : "#fff",
-                    color: p === page ? "#fff" : "#555555",
-                    fontSize: 14, fontWeight: 600, cursor: "pointer",
+                    color: p === page ? "#fff" : "#737373",
+                    fontSize: 14, fontWeight: 500, cursor: "pointer",
                   }}>{p}</button>
                 ))}
               </div>
@@ -785,16 +778,16 @@
       return (
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-            <StatCard label="Unique Attendees" value={unique.length} sub="Registered users" icon={<UsersIcon size={16} color="#666666" />} />
-            <StatCard label="Total Tickets Sold" value={tickets.reduce((a, b) => a + b.quantity, 0)} sub="Across all types" trend="up" icon={<TicketIcon size={16} color="#666666" />} accent="#E8F5E9" />
-            <StatCard label="Avg. Spend" value={`₦${Math.round(tickets.reduce((a, b) => a + b.total, 0) / unique.length).toLocaleString()}`} sub="Per attendee" trend="up" icon={<ChartIcon size={16} color="#666666" />} accent="#E3F2FD" />
+            <StatCard label="Unique Attendees" value={unique.length} sub="Registered users" icon={<UsersIcon size={16} color="#737373" />} />
+            <StatCard label="Total Tickets Sold" value={tickets.reduce((a, b) => a + b.quantity, 0)} sub="Across all types" trend="up" icon={<TicketIcon size={16} color="#737373" />} accent="#E8F5E9" />
+            <StatCard label="Avg. Spend" value={`₦${Math.round(tickets.reduce((a, b) => a + b.total, 0) / unique.length).toLocaleString()}`} sub="Per attendee" trend="up" icon={<ChartIcon size={16} color="#737373" />} accent="#E3F2FD" />
           </div>
-          <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #e5e5e5", overflow: "hidden" }}>
+          <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #f5f5f5", overflow: "hidden" }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
               <thead>
                 <tr style={{ background: "#fafafa" }}>
                   {["Name", "Email", "Phone", "Tickets Bought", "Total Spent", "Last Purchase"].map(h => (
-                    <th key={h} style={{ textAlign: "left", padding: "13px 20px", color: "#333333", fontWeight: 600, fontSize: 14 }}>{h}</th>
+                    <th key={h} style={{ textAlign: "left", padding: "13px 20px", color: "#262626", fontWeight: 500, fontSize: 14 }}>{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -804,18 +797,18 @@
                   const spent = all.reduce((a, b) => a + b.total, 0);
                   const last = all.sort((a, b) => b.date - a.date)[0].date;
                   return (
-                    <tr key={t.email} style={{ borderBottom: "1px solid #f0f0f0", background: "#fff" }}>
-                      <td style={{ padding: "13px 20px", fontWeight: 600, color: "#333333" }}>
+                    <tr key={t.email} style={{ borderBottom: "1px solid #f5f5f5", background: "#fff" }}>
+                      <td style={{ padding: "13px 20px", fontWeight: 500, color: "#262626" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                          <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#e8e8e8", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 500, fontSize: 14, color: "#555555", flexShrink: 0 }}>{t.name[0]}</div>
+                          <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#e5e5e5", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 500, fontSize: 14, color: "#737373", flexShrink: 0 }}>{t.name[0]}</div>
                           {t.name}
                         </div>
                       </td>
-                      <td style={{ padding: "13px 20px", color: "#555555" }}>{t.email}</td>
-                      <td style={{ padding: "13px 20px", color: "#555555" }}>{t.phone}</td>
-                      <td style={{ padding: "13px 20px", color: "#333333", fontWeight: 600, textAlign: "center" }}>{all.reduce((a, b) => a + b.quantity, 0)}</td>
-                      <td style={{ padding: "13px 20px", color: "#333333", fontWeight: 500 }}>₦{spent.toLocaleString()}</td>
-                      <td style={{ padding: "13px 20px", color: "#888888" }}>{fmt(last)}</td>
+                      <td style={{ padding: "13px 20px", color: "#737373" }}>{t.email}</td>
+                      <td style={{ padding: "13px 20px", color: "#737373" }}>{t.phone}</td>
+                      <td style={{ padding: "13px 20px", color: "#262626", fontWeight: 500, textAlign: "center" }}>{all.reduce((a, b) => a + b.quantity, 0)}</td>
+                      <td style={{ padding: "13px 20px", color: "#262626", fontWeight: 500 }}>₦{spent.toLocaleString()}</td>
+                      <td style={{ padding: "13px 20px", color: "#737373" }}>{fmt(last)}</td>
                     </tr>
                   );
                 })}
@@ -844,50 +837,50 @@
       return (
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-            <StatCard label="Gross Revenue" value={`₦${(total / 1000).toFixed(0)}k`} sub="+8.4% vs last period" trend="up" icon={<ChartIcon size={16} color="#666666" />} />
-            <StatCard label="Avg. Order Value" value={`₦${Math.round(total / tickets.length).toLocaleString()}`} sub="Per transaction" trend="up" icon={<TicketIcon size={16} color="#666666" />} accent="#E8F5E9" />
-            <StatCard label="Confirmed Revenue" value={`₦${(tickets.filter(t => t.status === "Confirmed").reduce((a, b) => a + b.total, 0) / 1000).toFixed(0)}k`} sub="Locked in" trend="up" icon={<UsersIcon size={16} color="#666666" />} accent="#E3F2FD" />
+            <StatCard label="Gross Revenue" value={`₦${(total / 1000).toFixed(0)}k`} sub="+8.4% vs last period" trend="up" icon={<ChartIcon size={16} color="#737373" />} />
+            <StatCard label="Avg. Order Value" value={`₦${Math.round(total / tickets.length).toLocaleString()}`} sub="Per transaction" trend="up" icon={<TicketIcon size={16} color="#737373" />} accent="#E8F5E9" />
+            <StatCard label="Confirmed Revenue" value={`₦${(tickets.filter(t => t.status === "Confirmed").reduce((a, b) => a + b.total, 0) / 1000).toFixed(0)}k`} sub="Locked in" trend="up" icon={<UsersIcon size={16} color="#737373" />} accent="#E3F2FD" />
           </div>
-          <div style={{ background: "#fff", borderRadius: 16, padding: "22px 24px", border: "1px solid #e5e5e5" }}>
-            <div style={{ fontSize: 14, fontWeight: 500, color: "#888888", marginBottom: 20 }}>Revenue by Ticket Type</div>
-            <div style={{ fontSize: 12, fontWeight: 600, color: "#aaaaaa", letterSpacing: 0.2, marginBottom: 12 }}>Ticket types</div>
+          <div style={{ background: "#fff", borderRadius: 16, padding: "22px 24px", border: "1px solid #f5f5f5" }}>
+            <div style={{ fontSize: 14, fontWeight: 500, color: "#737373", marginBottom: 20 }}>Revenue by Ticket Type</div>
+            <div style={{ fontSize: 12, fontWeight: 500, color: "#737373", letterSpacing: 0.2, marginBottom: 12 }}>Ticket types</div>
             <div style={{ display: "flex", flexDirection: "column" }}>
               {byType.map((t, i) => (
-                <div key={t.name} style={{ padding: "14px 0", borderBottom: i < byType.length - 1 ? "1px solid #f0f0f0" : "none" }}>
+                <div key={t.name} style={{ padding: "14px 0", borderBottom: i < byType.length - 1 ? "1px solid #f5f5f5" : "none" }}>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
-                    <span style={{ fontSize: 14, fontWeight: 500, color: "#333333" }}>{t.name}</span>
+                    <span style={{ fontSize: 14, fontWeight: 500, color: "#262626" }}>{t.name}</span>
                     <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                      <span style={{ fontSize: 14, color: "#888888" }}>{t.count} sold</span>
-                      <span style={{ fontSize: 14, fontWeight: 500, color: "#333333" }}>₦{t.revenue.toLocaleString()}</span>
-                      <span style={{ fontSize: 14, fontWeight: 500, color: "#333333", minWidth: 38, textAlign: "right" }}>{total ? `${((t.revenue / total) * 100).toFixed(0)}%` : "—"}</span>
+                      <span style={{ fontSize: 14, color: "#737373" }}>{t.count} sold</span>
+                      <span style={{ fontSize: 14, fontWeight: 500, color: "#262626" }}>₦{t.revenue.toLocaleString()}</span>
+                      <span style={{ fontSize: 14, fontWeight: 500, color: "#262626", minWidth: 38, textAlign: "right" }}>{total ? `${((t.revenue / total) * 100).toFixed(0)}%` : "—"}</span>
                     </div>
                   </div>
-                  <div style={{ height: 6, background: "#f0f0f0", borderRadius: 99, overflow: "hidden" }}>
+                  <div style={{ height: 6, background: "#f5f5f5", borderRadius: 99, overflow: "hidden" }}>
                     <div style={{ height: "100%", borderRadius: 99, background: colors[i], width: `${(t.revenue / total) * 100}%`, transition: "width 0.6s" }} />
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #e5e5e5", overflow: "hidden" }}>
-            <div style={{ padding: "18px 24px", borderBottom: "1px solid #e5e5e5" }}>
-              <div style={{ fontSize: 14, fontWeight: 500, color: "#888888" }}>Monthly Breakdown</div>
+          <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #f5f5f5", overflow: "hidden" }}>
+            <div style={{ padding: "18px 24px", borderBottom: "1px solid #f5f5f5" }}>
+              <div style={{ fontSize: 14, fontWeight: 500, color: "#737373" }}>Monthly Breakdown</div>
             </div>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
               <thead>
                 <tr style={{ background: "#fafafa" }}>
                   {["Month", "Tickets Sold", "Revenue", "% of Total"].map(h => (
-                    <th key={h} style={{ padding: "12px 20px", textAlign: "left", color: "#888888", fontWeight: 600, fontSize: 12, textTransform: "uppercase", letterSpacing: 0.5 }}>{h}</th>
+                    <th key={h} style={{ padding: "12px 20px", textAlign: "left", color: "#737373", fontWeight: 500, fontSize: 12, textTransform: "uppercase", letterSpacing: 0.5 }}>{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {monthly.map((m, i) => (
-                  <tr key={m.month} style={{ borderBottom: "1px solid #f0f0f0", background: "#fff" }}>
-                    <td style={{ padding: "13px 20px", fontWeight: 500, color: "#333333" }}>{m.month} 2025</td>
-                    <td style={{ padding: "13px 20px", color: "#555555" }}>{m.tickets}</td>
-                    <td style={{ padding: "13px 20px", fontWeight: 500, color: "#333333" }}>₦{m.revenue.toLocaleString()}</td>
-                    <td style={{ padding: "13px 20px", color: "#888888" }}>{total ? `${((m.revenue / total) * 100).toFixed(1)}%` : "—"}</td>
+                  <tr key={m.month} style={{ borderBottom: "1px solid #f5f5f5", background: "#fff" }}>
+                    <td style={{ padding: "13px 20px", fontWeight: 500, color: "#262626" }}>{m.month} 2025</td>
+                    <td style={{ padding: "13px 20px", color: "#737373" }}>{m.tickets}</td>
+                    <td style={{ padding: "13px 20px", fontWeight: 500, color: "#262626" }}>₦{m.revenue.toLocaleString()}</td>
+                    <td style={{ padding: "13px 20px", color: "#737373" }}>{total ? `${((m.revenue / total) * 100).toFixed(1)}%` : "—"}</td>
                   </tr>
                 ))}
               </tbody>
@@ -916,7 +909,7 @@
       return (
         <div style={{
           position: "fixed", bottom: 24, right: 24, zIndex: 9999,
-          background: "#18181b", color: "#fff", borderRadius: 10,
+          background: "#262626", color: "#fff", borderRadius: 10,
           padding: "14px 18px", display: "flex", alignItems: "center", gap: 10,
           boxShadow: "0 4px 24px rgba(0,0,0,0.18)",
           animation: `${anim === "in" ? "toastIn" : "toastOut"} 0.24s ease forwards`,
@@ -927,7 +920,7 @@
           </svg>
           <div>
             <div style={{ fontSize: 14, fontWeight: 500 }}>Changes saved</div>
-            <div style={{ fontSize: 12, color: "#a1a1aa", marginTop: 1 }}>Your settings have been updated.</div>
+            <div style={{ fontSize: 12, color: "#737373", marginTop: 1 }}>Your settings have been updated.</div>
           </div>
         </div>
       );
@@ -958,26 +951,26 @@
 
       const ViewField = ({ label, value }) => (
         <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-          <label style={{ fontSize: 12, fontWeight: 500, color: "#aaaaaa" }}>{label}</label>
-          <div style={{ fontSize: 14, fontWeight: 500, color: "#333333", padding: "10px 0" }}>{value}</div>
+          <label style={{ fontSize: 12, fontWeight: 500, color: "#737373" }}>{label}</label>
+          <div style={{ fontSize: 14, fontWeight: 500, color: "#262626", padding: "10px 0" }}>{value}</div>
         </div>
       );
 
       const EditField = ({ label, value, onChange, type = "text" }) => (
         <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-          <label style={{ fontSize: 14, fontWeight: 600, color: "#888888", letterSpacing: 0.2 }}>{label}</label>
+          <label style={{ fontSize: 14, fontWeight: 500, color: "#737373", letterSpacing: 0.2 }}>{label}</label>
           <input type={type} value={value} onChange={e => onChange(e.target.value)}
-            style={{ padding: "10px 14px", borderRadius: 10, border: "1.5px solid #E8E0FF", fontSize: 14, color: "#333333", outline: "none", fontWeight: 500, background: "#fff" }} />
+            style={{ padding: "10px 14px", borderRadius: 10, border: "1.5px solid #E8E0FF", fontSize: 14, color: "#262626", outline: "none", fontWeight: 500, background: "#fff" }} />
         </div>
       );
 
       return (
         <>
         <div style={{ display: "flex", flexDirection: "column", gap: 20, maxWidth: 600 }}>
-          <div style={{ background: "#fff", borderRadius: 16, padding: "26px 28px", boxShadow: "none", border: "1px solid #e5e5e5", display: "flex", flexDirection: "column", gap: 20 }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid #e5e5e5", paddingBottom: 14 }}>
-              <div style={{ fontSize: 15, fontWeight: 500, color: "#1a1a1a" }}>Event settings</div>
-              <button onClick={() => setEditingEvent(e => !e)} style={{ display: "flex", alignItems: "center", justifyContent: "center", background: editingEvent ? "#f4f4f5" : "#fff", border: "1px solid #e5e5e5", borderRadius: 7, width: 28, height: 28, color: editingEvent ? "#555" : "#1a1a1a", cursor: "pointer", padding: 0 }}>
+          <div style={{ background: "#fff", borderRadius: 16, padding: "26px 28px", boxShadow: "none", border: "1px solid #f5f5f5", display: "flex", flexDirection: "column", gap: 20 }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid #f5f5f5", paddingBottom: 14 }}>
+              <div style={{ fontSize: 15, fontWeight: 500, color: "#262626" }}>Event settings</div>
+              <button onClick={() => setEditingEvent(e => !e)} style={{ display: "flex", alignItems: "center", justifyContent: "center", background: editingEvent ? "#f5f5f5" : "#fff", border: "1px solid #f5f5f5", borderRadius: 7, width: 28, height: 28, color: editingEvent ? "#737373" : "#262626", cursor: "pointer", padding: 0 }}>
                 <PencilIcon />
               </button>
             </div>
@@ -986,13 +979,13 @@
                 <EditField label="Event name" value={eventName} onChange={setEventName} />
                 <EditField label="Admin email" value={email} onChange={setEmail} type="email" />
                 <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                  <label style={{ fontSize: 14, fontWeight: 600, color: "#888888", letterSpacing: 0.2 }}>Currency</label>
+                  <label style={{ fontSize: 14, fontWeight: 500, color: "#737373", letterSpacing: 0.2 }}>Currency</label>
                   <div style={{ position: "relative" }}>
                     <select value={currency} onChange={e => setCurrency(e.target.value)}
-                      style={{ width: "100%", appearance: "none", padding: "10px 36px 10px 14px", borderRadius: 10, border: "1.5px solid #E8E0FF", fontSize: 14, color: "#333333", background: "#fff", cursor: "pointer", outline: "none", fontWeight: 500 }}>
+                      style={{ width: "100%", appearance: "none", padding: "10px 36px 10px 14px", borderRadius: 10, border: "1.5px solid #E8E0FF", fontSize: 14, color: "#262626", background: "#fff", cursor: "pointer", outline: "none", fontWeight: 500 }}>
                       <option>NGN (₦)</option><option>USD ($)</option><option>GBP (£)</option>
                     </select>
-                    <span style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}><ChevronDown color="#666666" /></span>
+                    <span style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}><ChevronDown color="#737373" /></span>
                   </div>
                 </div>
               </>
@@ -1004,27 +997,27 @@
               </>
             )}
           </div>
-          <div style={{ background: "#fff", borderRadius: 16, padding: "26px 28px", boxShadow: "none", border: "1px solid #e5e5e5", display: "flex", flexDirection: "column", gap: 16 }}>
-            <div style={{ borderBottom: "1px solid #e5e5e5", paddingBottom: 14, display: "flex", flexDirection: "column", gap: 3 }}>
-              <div style={{ fontSize: 15, fontWeight: 500, color: "#1a1a1a" }}>Ticket types</div>
-              <div style={{ fontSize: 12, color: "#aaaaaa" }}>Click the edit button on any row to update its price</div>
+          <div style={{ background: "#fff", borderRadius: 16, padding: "26px 28px", boxShadow: "none", border: "1px solid #f5f5f5", display: "flex", flexDirection: "column", gap: 16 }}>
+            <div style={{ borderBottom: "1px solid #f5f5f5", paddingBottom: 14, display: "flex", flexDirection: "column", gap: 3 }}>
+              <div style={{ fontSize: 15, fontWeight: 500, color: "#262626" }}>Ticket types</div>
+              <div style={{ fontSize: 12, color: "#737373" }}>Click the edit button on any row to update its price</div>
             </div>
             {ticketPrices.map(tt => (
-              <div key={tt.id} style={{ display: "flex", alignItems: "center", gap: 12, padding: "4px 0", borderBottom: tt.id < ticketPrices.length ? "1px solid #f0f0f0" : "none", paddingBottom: 16 }}>
-                <div style={{ flex: 1, fontSize: 14, fontWeight: 500, color: "#333333" }}>{tt.name}</div>
+              <div key={tt.id} style={{ display: "flex", alignItems: "center", gap: 12, padding: "4px 0", borderBottom: tt.id < ticketPrices.length ? "1px solid #f5f5f5" : "none", paddingBottom: 16 }}>
+                <div style={{ flex: 1, fontSize: 14, fontWeight: 500, color: "#262626" }}>{tt.name}</div>
                 {tt.editing ? (
                   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                     <div style={{ position: "relative" }}>
-                      <span style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", fontSize: 14, color: "#888888", pointerEvents: "none" }}>₦</span>
+                      <span style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", fontSize: 14, color: "#737373", pointerEvents: "none" }}>₦</span>
                       <input type="number" value={tt.draft} onChange={e => updateDraft(tt.id, e.target.value)}
-                        style={{ padding: "8px 12px 8px 26px", borderRadius: 10, border: "1.5px solid #E8E0FF", fontSize: 14, color: "#333333", outline: "none", fontWeight: 500, width: 120, background: "#fff" }} />
+                        style={{ padding: "8px 12px 8px 26px", borderRadius: 10, border: "1.5px solid #E8E0FF", fontSize: 14, color: "#262626", outline: "none", fontWeight: 500, width: 120, background: "#fff" }} />
                     </div>
                     <button onClick={() => togglePriceEdit(tt.id)} style={{ padding: "8px 14px", borderRadius: 8, border: "none", background: PRIMARY, color: "#fff", fontSize: 13, fontWeight: 500, cursor: "pointer" }}>Done</button>
                   </div>
                 ) : (
                   <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                    <span style={{ fontSize: 14, fontWeight: 600, color: "#333333" }}>₦{Number(tt.draft).toLocaleString()}</span>
-                    <button onClick={() => togglePriceEdit(tt.id)} style={{ display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid #e5e5e5", background: "#fff", color: "#1a1a1a", borderRadius: 7, width: 28, height: 28, cursor: "pointer", padding: 0 }}>
+                    <span style={{ fontSize: 14, fontWeight: 500, color: "#262626" }}>₦{Number(tt.draft).toLocaleString()}</span>
+                    <button onClick={() => togglePriceEdit(tt.id)} style={{ display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid #f5f5f5", background: "#fff", color: "#262626", borderRadius: 7, width: 28, height: 28, cursor: "pointer", padding: 0 }}>
                       <PencilIcon />
                     </button>
                   </div>
@@ -1068,17 +1061,17 @@
       const SIDEBAR_W = collapsed ? 68 : 248;
 
       return (
-        <div style={{ display: "flex", minHeight: "100vh", background: "#fff", fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
+        <div style={{ display: "flex", minHeight: "100vh", background: "#fff", fontFamily: "'Inter', sans-serif" }}>
           <div style={{
             width: SIDEBAR_W, flexShrink: 0, background: "#fafafa",
-            borderRight: "1px solid #e5e5e5", display: "flex", flexDirection: "column",
+            borderRight: "1px solid #f5f5f5", display: "flex", flexDirection: "column",
             transition: "width 0.22s cubic-bezier(.4,0,.2,1)", overflow: "hidden", position: "sticky", top: 0, height: "100vh",
           }}>
-            <div style={{ padding: collapsed ? "20px 0" : "20px 20px", display: "flex", alignItems: "center", gap: 10, borderBottom: "1px solid #e5e5e5", justifyContent: collapsed ? "center" : "flex-start" }}>
+            <div style={{ padding: collapsed ? "20px 0" : "20px 20px", display: "flex", alignItems: "center", gap: 10, justifyContent: collapsed ? "center" : "flex-start" }}>
               <div style={{ width: 36, height: 36, borderRadius: 10, background: PRIMARY, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                 <TicketIcon size={18} color="#fff" />
               </div>
-              {!collapsed && <span style={{ fontWeight: 600, fontSize: 16, color: "#333333", letterSpacing: -0.5 }}>PassAdmin</span>}
+              {!collapsed && <span style={{ fontWeight: 500, fontSize: 16, color: "#262626", letterSpacing: -0.5 }}>PassAdmin</span>}
             </div>
             <nav style={{ flex: 1, padding: "14px 0", display: "flex", flexDirection: "column", gap: 2 }}>
               {SIDEBAR_ITEMS.map(({ id, label, icon: Icon }) => {
@@ -1088,29 +1081,41 @@
                     display: "flex", alignItems: "center", gap: 12,
                     padding: collapsed ? "11px 0" : "11px 22px",
                     margin: "0 8px", borderRadius: 10,
-                    background: active ? "#f0f0f0" : "transparent",
+                    background: active ? "#e5e5e5" : "transparent",
                     border: "none", cursor: "pointer",
-                    color: active ? "#333333" : "#888888",
-                    fontWeight: active ? 700 : 500,
+                    color: active ? "#262626" : "#737373",
+                    fontWeight: 500,
                     fontSize: 14, transition: "all 0.15s",
                     justifyContent: collapsed ? "center" : "flex-start",
                   }}
                     onMouseEnter={e => { if (!active) e.currentTarget.style.background = "#f5f5f5"; }}
                     onMouseLeave={e => { if (!active) e.currentTarget.style.background = "transparent"; }}>
-                    <Icon size={18} color={active ? "#333333" : "#888888"} />
+                    <Icon size={18} color={active ? "#262626" : "#737373"} />
                     {!collapsed && label}
                   </button>
                 );
               })}
             </nav>
             <button onClick={() => setCollapsed(c => !c)} style={{
-              margin: "12px 8px", padding: "10px", borderRadius: 10,
-              background: "#fff", border: "none", cursor: "pointer",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              color: "#888888", fontSize: 12, fontWeight: 600, gap: 6,
+              margin: "12px 8px", padding: "10px 12px", borderRadius: 10,
+              background: "transparent", border: "none", cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: collapsed ? "center" : "flex-start",
+              color: "#737373", fontSize: 12, fontWeight: 500, gap: 8, width: "calc(100% - 16px)",
             }}>
-              <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                {collapsed ? <polyline points="9 18 15 12 9 6" /> : <polyline points="15 18 9 12 15 6" />}
+              <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                {collapsed ? (
+                  <>
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <line x1="9" y1="3" x2="9" y2="21" />
+                    <polyline points="13 9 17 12 13 15" />
+                  </>
+                ) : (
+                  <>
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <line x1="9" y1="3" x2="9" y2="21" />
+                    <polyline points="13 15 9 12 13 9" />
+                  </>
+                )}
               </svg>
               {!collapsed && "Collapse"}
             </button>
@@ -1118,16 +1123,16 @@
           <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
             <div style={{
               height: 80, display: "flex", alignItems: "center", justifyContent: "space-between",
-              padding: "0 40px", background: "#fff", borderBottom: "1px solid #e5e5e5",
+              padding: "0 40px", background: "#fff", borderBottom: "1px solid #f5f5f5",
               position: "sticky", top: 0, zIndex: 10,
             }}>
               <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                <div style={{ fontSize: 20, fontWeight: 600, color: "#333333", letterSpacing: -0.5 }}>{PAGE_TITLES[activePage]}</div>
-                <div style={{ fontSize: 12, color: "#aaaaaa", fontWeight: 500 }}>B RED Event 2026 at Osun State</div>
+                <div style={{ fontSize: 20, fontWeight: 500, color: "#262626", letterSpacing: -0.5 }}>{PAGE_TITLES[activePage]}</div>
+                <div style={{ fontSize: 12, color: "#737373", fontWeight: 500 }}>Event name</div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                <button style={{ background: "#fff", border: "1.5px solid #e5e5e5", borderRadius: 10, width: 38, height: 38, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", position: "relative" }}>
-                  <BellIcon size={17} color="#666666" />
+                <button style={{ background: "#fff", border: "1.5px solid #f5f5f5", borderRadius: 10, width: 38, height: 38, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", position: "relative" }}>
+                  <BellIcon size={17} color="#737373" />
                   <div style={{ position: "absolute", top: 8, right: 8, width: 7, height: 7, borderRadius: "50%", background: "#E05B8C", border: "2px solid #fff" }} />
                 </button>
                 <div style={{ width: 36, height: 36, borderRadius: "50%", background: PRIMARY, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 14, color: "#fff", cursor: "pointer" }}>A</div>
