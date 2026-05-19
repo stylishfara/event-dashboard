@@ -423,7 +423,7 @@
         fontSize: 14, color: "#262626", outline: "none", fontWeight: 500,
         background: "#fff", width: "100%", boxSizing: "border-box", fontFamily: "inherit",
       };
-      const card = { background: "#fff", borderRadius: 16, padding: "24px 28px", border: "none", display: "flex", flexDirection: "column", gap: 18 };
+      const card = { background: "#fff", borderRadius: 16, padding: "20px 0", border: "none", display: "flex", flexDirection: "column", gap: 18 };
       const lbl = (txt) => <label style={{ fontSize: 13, fontWeight: 500, color: "#737373", display: "block", marginBottom: 8 }}>{txt}</label>;
       const sectionHead = (title, sub) => (
         <div>
@@ -431,7 +431,7 @@
           {sub && <div style={{ fontSize: 12, color: "#a3a3a3", marginTop: 8 }}>{sub}</div>}
         </div>
       );
-      const divider = <hr style={{ border: "none", borderTop: "1px solid #f5f5f5", margin: "0 28px" }} />;
+      const divider = <hr style={{ border: "none", borderTop: "1px solid #f5f5f5", margin: "0" }} />;
       const dashed = { display: "flex", alignItems: "center", gap: 6, padding: "9px 14px", borderRadius: 10, border: "none", background: "#f5f5f5", fontSize: 13, fontWeight: 500, color: "#262626", cursor: "pointer", fontFamily: "inherit" };
 
       return (
@@ -439,13 +439,13 @@
 
           {/* Breadcrumb */}
           <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 14, fontWeight: 500 }}>
-            <span onClick={onCancel} style={{ color: "#a3a3a3", cursor: "pointer" }}>Events</span>
+            <span onClick={onCancel} style={{ color: "#a3a3a3", cursor: "pointer" }}>Dashboard</span>
             <span style={{ color: "#d4d4d4" }}>›</span>
             <span style={{ color: "#262626" }}>Create event</span>
           </div>
 
           {/* Single centered column */}
-          <div style={{ maxWidth: 680, margin: "0 auto", width: "100%", display: "flex", flexDirection: "column", gap: 4 }}>
+          <div style={{ maxWidth: 680, width: "100%", display: "flex", flexDirection: "column", gap: 4 }}>
 
             <div style={card}>
               {sectionHead("Event details")}
@@ -1443,7 +1443,7 @@
       const PAGES = {
         dashboard: <DashboardPage tickets={activeTickets} onNavigate={setActivePage} />,
         events: <EventsPage tickets={activeTickets} events={events} />,
-        "create-event": <CreateEventPage onSave={handleCreateEvent} onCancel={() => setActivePage("events")} saveRef={saveRef} />,
+        "create-event": <CreateEventPage onSave={handleCreateEvent} onCancel={() => setActivePage("dashboard")} saveRef={saveRef} />,
         tickets: <TicketsPage tickets={activeTickets} />,
         attendees: <AttendeesPage tickets={activeTickets} />,
         revenue: <RevenuePage tickets={activeTickets} />,
@@ -1608,14 +1608,11 @@
                   <button onClick={() => setActivePage("create-event")} style={{
                     display: "flex", alignItems: "center", gap: 6,
                     padding: "0 14px", height: 38, borderRadius: 10,
-                    border: "1.5px solid #e5e5e5", background: "#fff",
-                    fontSize: 13, fontWeight: 500, color: "#262626",
+                    border: "none", background: PRIMARY,
+                    fontSize: 13, fontWeight: 500, color: "#fff",
                     cursor: "pointer", fontFamily: "inherit", whiteSpace: "nowrap",
-                    transition: "border-color 0.15s",
-                  }}
-                    onMouseEnter={e => e.currentTarget.style.borderColor = "#d4d4d4"}
-                    onMouseLeave={e => e.currentTarget.style.borderColor = "#e5e5e5"}>
-                    <PlusIcon size={13} color="#262626" />
+                  }}>
+                    <PlusIcon size={13} color="#fff" />
                     New event
                   </button>
                 )}
@@ -1636,7 +1633,7 @@
                 </button>
               </div>
             </div>
-            <div style={{ flex: 1, padding: "24px 28px", overflowY: "auto" }}>
+            <div style={{ flex: 1, padding: "24px 40px", overflowY: "auto" }}>
               {PAGES[activePage]}
             </div>
           </div>
