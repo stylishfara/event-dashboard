@@ -957,7 +957,7 @@
               </div>
               <div style={{ display: "flex", alignItems: "flex-start", gap: 4, marginBottom: 24 }}>
                 <span style={{ fontSize: 14, fontWeight: 500, color: "#737373", marginTop: 6 }}>₦</span>
-                <span style={{ fontSize: 32, fontWeight: 500, color: "#262626", letterSpacing: 0, lineHeight: 1 }}>{Math.round(revenue / tickets.length).toLocaleString()}</span>
+                <span style={{ fontSize: 32, fontWeight: 500, color: "#262626", letterSpacing: 0, lineHeight: 1 }}>{tickets.length ? Math.round(revenue / tickets.length).toLocaleString() : "0"}</span>
               </div>
               <BarChart data={barData} color="#4B9EFF" />
             </div>
@@ -1092,7 +1092,7 @@
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             <StatCard label="Unique Attendees" value={unique.length} sub="Registered users" icon={<UsersIcon size={16} color="#737373" />} />
             <StatCard label="Total Tickets Sold" value={tickets.reduce((a, b) => a + b.quantity, 0)} sub="Across all types" trend="up" icon={<TicketIcon size={16} color="#737373" />} accent="#E8F5E9" />
-            <StatCard label="Avg. Spend" value={`₦${Math.round(tickets.reduce((a, b) => a + b.total, 0) / unique.length).toLocaleString()}`} sub="Per attendee" trend="up" icon={<ChartIcon size={16} color="#737373" />} accent="#E3F2FD" />
+            <StatCard label="Avg. Spend" value={`₦${unique.length ? Math.round(tickets.reduce((a, b) => a + b.total, 0) / unique.length).toLocaleString() : "0"}`} sub="Per attendee" trend="up" icon={<ChartIcon size={16} color="#737373" />} accent="#E3F2FD" />
           </div>
           <div style={{ background: "#fff", borderRadius: 16, border: "1px solid #f5f5f5", overflow: "hidden" }}>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
@@ -1150,7 +1150,7 @@
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             <StatCard label="Gross Revenue" value={`₦${(total / 1000).toFixed(0)}k`} sub="+8.4% vs last period" trend="up" icon={<ChartIcon size={16} color="#737373" />} />
-            <StatCard label="Avg. Order Value" value={`₦${Math.round(total / tickets.length).toLocaleString()}`} sub="Per transaction" trend="up" icon={<TicketIcon size={16} color="#737373" />} accent="#E8F5E9" />
+            <StatCard label="Avg. Order Value" value={`₦${tickets.length ? Math.round(total / tickets.length).toLocaleString() : "0"}`} sub="Per transaction" trend="up" icon={<TicketIcon size={16} color="#737373" />} accent="#E8F5E9" />
             <StatCard label="Confirmed Revenue" value={`₦${(tickets.filter(t => t.status === "Confirmed").reduce((a, b) => a + b.total, 0) / 1000).toFixed(0)}k`} sub="Locked in" trend="up" icon={<UsersIcon size={16} color="#737373" />} accent="#E3F2FD" />
           </div>
           <div style={{ background: "#fff", borderRadius: 16, padding: "22px 24px", border: "1px solid #f5f5f5" }}>
