@@ -13,6 +13,7 @@
   <script src="https://unpkg.com/recharts@2.12.7/umd/Recharts.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 </head>
 <body>
   <div id="root"></div>
@@ -877,31 +878,29 @@
       );
     }
 
-    function DashboardPage({ tickets, onNavigate }) {
-      const total = tickets.length;
-      const revenue = tickets.reduce((a, b) => a + b.total, 0);
-      const confirmed = tickets.filter(t => t.status === "Confirmed").length;
-      const uniqueAttendees = [...new Map(tickets.map(t => [t.email, t])).values()].length;
+    function DashboardPage({ tickets, allTickets, events, selectedEventId, onNavigate }) {
+      // ── Portfolio summary (always visible) ──
+      const totalRevenue = allTickets.reduce((a, b) => a + b.total, 0);
+      const totalTickets = allTickets.length;
+      const totalAttendees = [...new Map(allTickets.map(t => [t.email, t])).values()].length;
 
+      // ── Per-event metrics ──
+      const revenue = tickets.reduce((a, b) => a + b.total, 0);
+      const total = tickets.length;
+      const uniqueAttendees = [...new Map(tickets.map(t => [t.email, t])).values()].length;
       const typeBreakdown = TICKET_TYPES.map((tt, i) => ({
         label: tt.name, value: tickets.filter(t => t.ticketType === tt.name).reduce((a, b) => a + b.total, 0),
         color: ["#4B9EFF", "#C060FF", "#F5A623"][i],
       }));
-
       const [revenueTab, setRevenueTab] = React.useState("All Time");
       const revenueTabs = ["Today", "7 Days", "30 Days", "All Time"];
-
       const now = new Date();
       const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
       const barData = (() => {
         if (revenueTab === "Today") {
           return [0, 4, 8, 12, 16, 20].map(h => {
             const label = h === 0 ? "12am" : h < 12 ? `${h}am` : h === 12 ? "12pm" : `${h - 12}pm`;
-            const value = tickets.filter(t => {
-              const d = t.date;
-              return d >= startOfDay && d.getHours() >= h && d.getHours() < h + 4;
-            }).reduce((a, b) => a + b.total, 0);
+            const value = tickets.filter(t => { const d = t.date; return d >= startOfDay && d.getHours() >= h && d.getHours() < h + 4; }).reduce((a, b) => a + b.total, 0);
             return { label, value };
           });
         }
@@ -909,31 +908,40 @@
           return Array.from({ length: 7 }, (_, i) => {
             const d = new Date(startOfDay.getTime() - (6 - i) * 86400000);
             const next = new Date(d.getTime() + 86400000);
-            const label = d.toLocaleDateString("en-GB", { weekday: "short" });
-            const value = tickets.filter(t => t.date >= d && t.date < next).reduce((a, b) => a + b.total, 0);
-            return { label, value };
+            return { label: d.toLocaleDateString("en-GB", { weekday: "short" }), value: tickets.filter(t => t.date >= d && t.date < next).reduce((a, b) => a + b.total, 0) };
           });
         }
         if (revenueTab === "30 Days") {
           return Array.from({ length: 4 }, (_, i) => {
             const start = new Date(startOfDay.getTime() - (30 - i * 7) * 86400000);
             const end = new Date(start.getTime() + 7 * 86400000);
-            const value = tickets.filter(t => t.date >= start && t.date < end).reduce((a, b) => a + b.total, 0);
-            return { label: `Wk ${i + 1}`, value };
+            return { label: `Wk ${i + 1}`, value: tickets.filter(t => t.date >= start && t.date < end).reduce((a, b) => a + b.total, 0) };
           });
         }
         const monthMap = {};
-        tickets.forEach(t => {
-          const key = t.date.toLocaleDateString("en-GB", { month: "short", year: "2-digit" });
-          monthMap[key] = (monthMap[key] || 0) + t.total;
-        });
+        tickets.forEach(t => { const key = t.date.toLocaleDateString("en-GB", { month: "short", year: "2-digit" }); monthMap[key] = (monthMap[key] || 0) + t.total; });
         return Object.entries(monthMap).map(([label, value]) => ({ label, value }));
       })();
-
       const recent = [...tickets].sort((a, b) => b.date - a.date).slice(0, 5);
 
       return (
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+          {/* Portfolio summary strip — aggregate across all events */}
+          <div style={{ display: "flex", alignItems: "center", gap: 32, padding: "12px 20px", background: "#fafafa", borderRadius: 12, border: "1px solid #f0f0f0" }}>
+            <div style={{ fontSize: 12, fontWeight: 600, color: "#a3a3a3", letterSpacing: "0.04em", textTransform: "uppercase", whiteSpace: "nowrap" }}>All Events</div>
+            <div style={{ width: 1, height: 20, background: "#e5e5e5" }} />
+            {[
+              { label: "Revenue", value: `₦${(totalRevenue / 1000).toFixed(0)}k` },
+              { label: "Tickets", value: totalTickets },
+              { label: "Attendees", value: totalAttendees },
+              { label: "Events", value: events.length },
+            ].map((item, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "baseline", gap: 5 }}>
+                <span style={{ fontSize: 15, fontWeight: 600, color: "#262626" }}>{item.value}</span>
+                <span style={{ fontSize: 12, color: "#a3a3a3" }}>{item.label}</span>
+              </div>
+            ))}
+          </div>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             <StatCard label="Total Revenue" value={`₦${(revenue / 1000).toFixed(0)}k`} sub="+8.4% this month" trend="up" icon={<ChartIcon size={16} color="#737373" />} />
             <StatCard label="Total Tickets" value={total} sub="+12% this month" trend="up" icon={<TicketIcon size={16} color="#737373" />} />
@@ -945,13 +953,7 @@
                 <div style={{ fontSize: 14, fontWeight: 500, color: "#737373" }}>Revenue</div>
                 <div style={{ display: "flex", background: "#fafafa", borderRadius: 10, padding: 3, gap: 2 }}>
                   {revenueTabs.map(tab => (
-                    <button key={tab} onClick={() => setRevenueTab(tab)} style={{
-                      fontSize: 12, fontWeight: 500, padding: "5px 10px", borderRadius: 8, border: "none", cursor: "pointer",
-                      background: revenueTab === tab ? "#fff" : "transparent",
-                      color: revenueTab === tab ? "#262626" : "#737373",
-                      boxShadow: revenueTab === tab ? "0 1px 3px rgba(0,0,0,0.08)" : "none",
-                      transition: "all 0.15s",
-                    }}>{tab}</button>
+                    <button key={tab} onClick={() => setRevenueTab(tab)} style={{ fontSize: 12, fontWeight: 500, padding: "5px 10px", borderRadius: 8, border: "none", cursor: "pointer", background: revenueTab === tab ? "#fff" : "transparent", color: revenueTab === tab ? "#262626" : "#737373", boxShadow: revenueTab === tab ? "0 1px 3px rgba(0,0,0,0.08)" : "none", transition: "all 0.15s" }}>{tab}</button>
                   ))}
                 </div>
               </div>
@@ -1000,7 +1002,7 @@
       );
     }
 
-    function TicketsPage({ tickets }) {
+    function TicketsPage({ tickets, events = [] }) {
       const [search, setSearch] = useState("");
       const [filterStatus, setFilterStatus] = useState("All");
       const [filterType, setFilterType] = useState("All");
@@ -1132,26 +1134,28 @@
     }
 
     function RevenuePage({ tickets }) {
-      const total = tickets.reduce((a, b) => a + b.total, 0);
+      const activeTickets = tickets;
+
+      const total = activeTickets.reduce((a, b) => a + b.total, 0);
       const byType = TICKET_TYPES.map(tt => ({
         name: tt.name,
-        revenue: tickets.filter(t => t.ticketType === tt.name).reduce((a, b) => a + b.total, 0),
-        count: tickets.filter(t => t.ticketType === tt.name).length,
+        revenue: activeTickets.filter(t => t.ticketType === tt.name).reduce((a, b) => a + b.total, 0),
+        count: activeTickets.filter(t => t.ticketType === tt.name).length,
       }));
       const colors = ["#4B9EFF", "#C060FF", "#F5A623"];
 
       const monthly = ["Jan", "Feb", "Mar", "Apr"].map((m, i) => ({
         month: m,
-        revenue: tickets.filter(t => t.date.getMonth() === i).reduce((a, b) => a + b.total, 0),
-        tickets: tickets.filter(t => t.date.getMonth() === i).length,
+        revenue: activeTickets.filter(t => t.date.getMonth() === i).reduce((a, b) => a + b.total, 0),
+        tickets: activeTickets.filter(t => t.date.getMonth() === i).length,
       }));
 
       return (
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
             <StatCard label="Gross Revenue" value={`₦${(total / 1000).toFixed(0)}k`} sub="+8.4% vs last period" trend="up" icon={<ChartIcon size={16} color="#737373" />} />
-            <StatCard label="Avg. Order Value" value={`₦${tickets.length ? Math.round(total / tickets.length).toLocaleString() : "0"}`} sub="Per transaction" trend="up" icon={<TicketIcon size={16} color="#737373" />} accent="#E8F5E9" />
-            <StatCard label="Confirmed Revenue" value={`₦${(tickets.filter(t => t.status === "Confirmed").reduce((a, b) => a + b.total, 0) / 1000).toFixed(0)}k`} sub="Locked in" trend="up" icon={<UsersIcon size={16} color="#737373" />} accent="#E3F2FD" />
+            <StatCard label="Avg. Order Value" value={`₦${activeTickets.length ? Math.round(total / activeTickets.length).toLocaleString() : "0"}`} sub="Per transaction" trend="up" icon={<TicketIcon size={16} color="#737373" />} accent="#E8F5E9" />
+            <StatCard label="Confirmed Revenue" value={`₦${(activeTickets.filter(t => t.status === "Confirmed").reduce((a, b) => a + b.total, 0) / 1000).toFixed(0)}k`} sub="Locked in" trend="up" icon={<UsersIcon size={16} color="#737373" />} accent="#E3F2FD" />
           </div>
           <div style={{ background: "#fff", borderRadius: 16, padding: "22px 24px", border: "1px solid #f5f5f5" }}>
             <div style={{ fontSize: 14, fontWeight: 500, color: "#737373", marginBottom: 20 }}>Revenue by Ticket Type</div>
@@ -1395,7 +1399,7 @@
     function App() {
       const [activePage, setActivePage] = useState("dashboard");
       const [collapsed, setCollapsed] = useState(false);
-      const [selectedEventId, setSelectedEventId] = useState("all");
+      const [selectedEventId, setSelectedEventId] = useState("EVT-001");
       const [eventDropdownOpen, setEventDropdownOpen] = useState(false);
       const [events, setEvents] = useState(EVENTS);
       const saveRef = React.useRef(null);
@@ -1420,7 +1424,7 @@
         setEvents(prev => prev.map(e => e.id === updated.id ? { ...e, ...updated } : e));
       };
 
-      const selectedEvent = selectedEventId === "all" ? null : events.find(e => e.id === selectedEventId);
+      const selectedEvent = events.find(e => e.id === selectedEventId) || events[0];
       const activeTickets = selectedEvent ? rawTickets.filter(selectedEvent.ticketFilter) : rawTickets;
 
       React.useEffect(() => {
@@ -1441,7 +1445,7 @@
       };
 
       const PAGES = {
-        dashboard: <DashboardPage tickets={activeTickets} onNavigate={setActivePage} />,
+        dashboard: <DashboardPage tickets={activeTickets} allTickets={rawTickets} events={events} selectedEventId={selectedEventId} onNavigate={setActivePage} />,
         events: <EventsPage tickets={activeTickets} events={events} />,
         "create-event": <CreateEventPage onSave={handleCreateEvent} onCancel={() => setActivePage("dashboard")} saveRef={saveRef} />,
         tickets: <TicketsPage tickets={activeTickets} />,
@@ -1484,7 +1488,7 @@
                   <div style={{ display: "flex", flexDirection: "column", gap: 4, textAlign: "left", minWidth: 0 }}>
                     <span style={{ fontSize: 10, color: "#a3a3a3", fontWeight: 500 }}>Event name</span>
                     <span style={{ fontSize: 13, color: "#262626", fontWeight: 500, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: 148 }}>
-                      {selectedEvent ? selectedEvent.name : "All Events"}
+                      {selectedEvent?.name}
                     </span>
                   </div>
                   <ChevronDown size={12} color="#a3a3a3" />
@@ -1509,7 +1513,7 @@
                   <div style={{ padding: "8px 12px 6px", borderBottom: "1px solid #f5f5f5" }}>
                     <span style={{ fontSize: 11, color: "#a3a3a3", fontWeight: 500 }}>Switch event</span>
                   </div>
-                  {[{ id: "all", name: "All Events", status: null }, ...events].map((ev, i, arr) => (
+                  {events.map((ev, i, arr) => (
                     <button key={ev.id} onClick={() => { setSelectedEventId(ev.id); setEventDropdownOpen(false); }} style={{
                       display: "flex", alignItems: "center", justifyContent: "space-between",
                       width: "100%", padding: "9px 12px",
@@ -1600,7 +1604,7 @@
               <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                 <div style={{ fontSize: 20, fontWeight: 500, color: "#262626", letterSpacing: -0.5 }}>{PAGE_TITLES[activePage]}</div>
                 <div style={{ fontSize: 12, color: "#a3a3a3", fontWeight: 500 }}>
-                  {selectedEvent ? selectedEvent.name : "All Events"}
+                  {selectedEvent?.name}
                 </div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
